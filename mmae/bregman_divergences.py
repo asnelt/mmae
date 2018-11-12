@@ -50,18 +50,16 @@ class BregmanDivergence(ABC):
         return K.mean(self._phi(x) - self._phi(y)
                       - (x - y) * self._phi_gradient(y), axis=-1)
 
-    @staticmethod
     @abc.abstractmethod
-    def _phi(z):
+    def _phi(self, z):
         """
         This is the phi function of the Bregman divergence.
 
         """
         pass
 
-    @staticmethod
     @abc.abstractmethod
-    def _phi_gradient(z):
+    def _phi_gradient(self, z):
         """
         This is the gradient of the phi function of the Bregman divergence.
 
@@ -76,12 +74,10 @@ class GaussianDivergence(BregmanDivergence):
 
     """
 
-    @staticmethod
-    def _phi(z):
+    def _phi(self, z):
         return K.square(z) / 2.0
 
-    @staticmethod
-    def _phi_gradient(z):
+    def _phi_gradient(self, z):
         return z
 
 gaussian_divergence = GaussianDivergence()
@@ -94,13 +90,11 @@ class GammaDivergence(BregmanDivergence):
 
     """
 
-    @staticmethod
-    def _phi(z):
+    def _phi(self, z):
         z = K.maximum(z, K.epsilon())
         return -K.log(z)
 
-    @staticmethod
-    def _phi_gradient(z):
+    def _phi_gradient(self, z):
         z = K.maximum(z, K.epsilon())
         return -1.0 / z
 
@@ -114,13 +108,11 @@ class BernoulliDivergence(BregmanDivergence):
 
     """
 
-    @staticmethod
-    def _phi(z):
+    def _phi(self, z):
         z = K.clip(z, K.epsilon(), 1.0 - K.epsilon())
         return z * K.log(z) + (1 - z) * K.log(1 - z)
 
-    @staticmethod
-    def _phi_gradient(z):
+    def _phi_gradient(self, z):
         z = K.clip(z, K.epsilon(), 1.0 - K.epsilon())
         return K.log(z) - K.log(1 - z)
 
@@ -134,14 +126,70 @@ class PoissonDivergence(BregmanDivergence):
 
     """
 
-    @staticmethod
-    def _phi(z):
+    def _phi(self, z):
         z = K.maximum(z, K.epsilon())
         return z * K.log(z) - z
 
-    @staticmethod
-    def _phi_gradient(z):
+    def _phi_gradient(self, z):
         z = K.maximum(z, K.epsilon())
         return K.log(z)
 
 poisson_divergence = PoissonDivergence()
+
+
+class BinomialDivergence(BregmanDivergence):
+    """
+    This class represents the loss function corresponding to a binomial noise
+    model.
+
+    Parameters
+    ----------
+    n : int
+        The number of trials in the binomial noise model.  The number must be
+        positive.
+
+    Attributes
+    ----------
+    n : int
+        The number of trials in the binomial noise model.
+
+    """
+    def __init__(self, n):
+        self.n = n
+
+    def _phi(self, z):
+        z = K.clip(z, K.epsilon(), self.n - K.epsilon())
+        return z * K.log(z) + (self.n - z) * K.log(self.n - z)
+
+    def _phi_gradient(self, z):
+        z = K.clip(z, K.epsilon(), self.n - K.epsilon())
+        return K.log(z) - K.log(self.n - z)
+
+
+class NegativeBinomialDivergence(BregmanDivergence):
+    """
+    This class represents the loss function corresponding to a negative
+    binomial noise model.
+
+    Parameters
+    ----------
+    r : int
+        The number of failures in the negative binomial noise model.  The
+        number must be positive.
+
+    Attributes
+    ----------
+    r : int
+        The number of failures in the negative binomial noise model.
+
+    """
+    def __init__(self, r):
+        self.r = r
+
+    def _phi(self, z):
+        z = K.maximum(z, K.epsilon())
+        return z * K.log(z) - (self.r + z) * K.log(self.r + z)
+
+    def _phi_gradient(self, z):
+        z = K.maximum(z, K.epsilon())
+        return K.log(z) - K.log(self.r + z)
