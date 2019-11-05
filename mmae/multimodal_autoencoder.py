@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018 Arno Onken
+# Copyright (C) 2018, 2019 Arno Onken
 #
 # This file is part of the mmae package.
 #
@@ -25,16 +25,28 @@ from __future__ import division
 import copy
 import numpy as np
 import six
-from keras.layers import Input
-from keras.layers import Dense
-from keras.layers import Flatten
-from keras.layers import Reshape
-from keras.layers import Activation
-from keras.layers import Dropout
-from keras.layers import concatenate
-from keras.models import Model
-from keras.constraints import max_norm
-import keras.backend as K
+try:
+    from tensorflow.keras.layers import Input
+    from tensorflow.keras.layers import Dense
+    from tensorflow.keras.layers import Flatten
+    from tensorflow.keras.layers import Reshape
+    from tensorflow.keras.layers import Activation
+    from tensorflow.keras.layers import Dropout
+    from tensorflow.keras.layers import concatenate
+    from tensorflow.keras.models import Model
+    from tensorflow.keras.constraints import max_norm
+    import tensorflow.keras.backend as K
+except ImportError:
+    from keras.layers import Input
+    from keras.layers import Dense
+    from keras.layers import Flatten
+    from keras.layers import Reshape
+    from keras.layers import Activation
+    from keras.layers import Dropout
+    from keras.layers import concatenate
+    from keras.models import Model
+    from keras.constraints import max_norm
+    import keras.backend as K
 
 from . import bregman_divergences
 

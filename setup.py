@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018 Arno Onken
+# Copyright (C) 2018, 2019 Arno Onken
 #
 # This file is part of the mmae package.
 #
@@ -22,27 +22,30 @@ Setup for the mmae package.
 from setuptools import setup
 
 setup(
-    name="mmae",
-    version="0.2.0",
-    description=("Package for multimodal autoencoders with Bregman"
-                 " divergences."),
+    name='mmae',
+    version='0.2.1',
+    description=('Package for multimodal autoencoders with Bregman'
+                 ' divergences.'),
     long_description=open('README.rst').read(),
-    keywords="autoencoder multimodal deep learning bregman",
-    url="https://github.com/asnelt/mmae/",
-    author="Arno Onken",
-    author_email="asnelt@asnelt.org",
-    license="GPLv3+",
-    packages=["mmae"],
+    keywords='autoencoder multimodal deep learning bregman',
+    url='https://github.com/asnelt/mmae/',
+    author='Arno Onken',
+    author_email='asnelt@asnelt.org',
+    license='GPLv3+',
+    packages=['mmae'],
     install_requires=[
-        "numpy",
-        "six",
-        "keras"],
+        'numpy',
+        'six'],
+    extras_require={
+        'keras': ['keras>=2.3.0'],
+        'tensorflow': ['tensorflow>=2.0.0'],
+        'tensorflow-gpu': ['tensorflow-gpu>=2.0.0']},
     classifiers=[
-        "Development Status :: 4 - Beta",
-        "Intended Audience :: Science/Research",
-        ("License :: OSI Approved :: GNU General Public License v3 or later"
-         " (GPLv3+)"),
-        "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Topic :: Scientific/Engineering"]
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Science/Research',
+        ('License :: OSI Approved :: GNU General Public License v3 or later'
+         ' (GPLv3+)'),
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Scientific/Engineering']
 )

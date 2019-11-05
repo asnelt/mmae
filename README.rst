@@ -1,6 +1,6 @@
-======================
-mmae Package for Keras
-======================
+===================================
+mmae Package for TensorFlow / Keras
+===================================
 
 Package for multimodal autoencoders with Bregman divergences.
 
@@ -30,16 +30,26 @@ Requirements
 ------------
 
 The package is compatible with Python 2.7 and 3.x and additionally requires
-NumPy, Six and Keras.  It was tested with Python 2.7.15, Python 3.6.6,
-NumPy 1.15.2, Six 1.11.0 and Keras 2.2.4.
+NumPy, Six and TensorFlow or Keras.  It was tested with Python 2.7.17,
+Python 3.7.5, NumPy 1.16.5, Six 1.12.0, TensorFlow 2.0.0 and Keras 2.3.1.
 
 
 Installation
 ------------
 
-To install the mmae package, run::
+To install the mmae package with the TensorFlow back-end with GPU support,
+run::
 
-    pip install mmae
+    pip install mmae[tensorflow-gpu]
+
+To install the mmae package with the TensorFlow back-end without GPU support,
+run::
+
+    pip install mmae[tensorflow]
+
+To install the mmae package with the Keras back-end, run::
+
+    pip install mmae[keras]
 
 
 Usage
@@ -81,13 +91,16 @@ treated as one modality and the number label is treated as another modality:
 
 .. code-block:: python
 
-    from keras.datasets import mnist
+    # Remove 'tensorflow.' from the next line if you use just Keras
+    from tensorflow.keras.datasets import mnist
     from mmae.multimodal_autoencoder import MultimodalAutoencoder
     # Load example data
     (x_train, y_train), (x_validation, y_validation) = mnist.load_data()
     # Scale pixel values to range [0, 1]
     x_train = x_train.astype('float32') / 255.0
+    y_train = y_train.astype('float32') / 255.0
     x_validation = x_validation.astype('float32') / 255.0
+    y_validation = y_validation.astype('float32') / 255.0
     # Multimodal training data
     data = [x_train, y_train]
     # Multimodal validation data
@@ -148,7 +161,7 @@ The source code of the mmae package is hosted on
 License
 -------
 
-Copyright (C) 2018 Arno Onken
+Copyright (C) 2018, 2019 Arno Onken
 
 This file is part of the mmae package.
 
