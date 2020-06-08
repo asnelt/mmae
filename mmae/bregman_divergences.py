@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018, 2019 Arno Onken
+# Copyright (C) 2018-2020 Arno Onken
 #
 # This file is part of the mmae package.
 #
@@ -58,6 +58,7 @@ class BregmanDivergence(LossFunctionWrapper):
 
         super(BregmanDivergence, self).__init__(bregman_function, name=name,
                                                 reduction=reduction)
+        self.__name__ = name
 
     @abc.abstractmethod
     def _phi(self, z):

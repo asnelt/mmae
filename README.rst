@@ -31,7 +31,7 @@ Requirements
 
 The package is compatible with Python 2.7 and 3.x and additionally requires
 NumPy, Six and TensorFlow or Keras.  It was tested with Python 2.7.17,
-Python 3.7.5, NumPy 1.16.5, Six 1.12.0, TensorFlow 2.0.0 and Keras 2.3.1.
+Python 3.8.2, NumPy 1.18.4, Six 1.15.0, TensorFlow 2.2.0 and Keras 2.3.1.
 
 
 Installation
@@ -161,7 +161,7 @@ The source code of the mmae package is hosted on
 License
 -------
 
-Copyright (C) 2018, 2019 Arno Onken
+Copyright (C) 2018-2020 Arno Onken
 
 This file is part of the mmae package.
 

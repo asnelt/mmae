@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018, 2019 Arno Onken
+# Copyright (C) 2018-2020 Arno Onken
 #
 # This file is part of the mmae package.
 #
@@ -23,7 +23,7 @@ from setuptools import setup
 
 setup(
     name='mmae',
-    version='0.2.1',
+    version='0.2.2',
     description=('Package for multimodal autoencoders with Bregman'
                  ' divergences.'),
     long_description=open('README.rst').read(),

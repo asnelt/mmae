@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2018, 2019 Arno Onken
+# Copyright (C) 2018-2020 Arno Onken
 #
 # This file is part of the mmae package.
 #
@@ -92,7 +92,7 @@ class MultimodalAutoencoder(Model):
         validation_data, shuffle, sample_weight, validation_sample_weight,
         initial_epoch, steps_per_epoch, validation_steps)
         Fits the model to the given training data.
-    evaluate(data, batch_size, verbose, sample_weight, steps)
+    evaluate_reconstruction(data, batch_size, verbose, sample_weight, steps)
         Evaluates reconstruction loss for the given test data.
     train_on_batch(data, sample_weight)
         Applies a single batch update step using the provided training data.
@@ -273,7 +273,7 @@ class MultimodalAutoencoder(Model):
                                steps_per_epoch=steps_per_epoch,
                                validation_steps=validation_steps)
 
-    def evaluate(self, data=None, batch_size=None, verbose=1,
+    def evaluate_reconstruction(self, data=None, batch_size=None, verbose=1,
                  sample_weight=None, steps=None):
         """
         Evaluates reconstruction loss for the given test data.
